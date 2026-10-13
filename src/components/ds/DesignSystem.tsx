@@ -20,14 +20,14 @@ function stateRows(k: Kit): { name: string; render: Partial<Record<Force, (f: Fo
     { name: "Primary button", render: without(["selected"], (f) => <k.Button force={f} disabled={off(f)}>Save spot</k.Button>) },
     { name: "Secondary button", render: without(["selected"], (f) => <k.Button variant="secondary" force={f} disabled={off(f)}>Details</k.Button>) },
     { name: "Link", render: without(["selected", "disabled"], (f) => <k.TextLink href="#" force={f}>See all</k.TextLink>) },
-    { name: "Text input", render: without(["pressed", "selected"], (f) => <div className="w-40"><k.TextInput label="Search" hideLabel placeholder="Search" force={f} disabled={off(f)} /></div>) },
-    { name: "Select", render: without(["pressed", "selected"], (f) => <div className="w-36"><k.Select label="Sort" hideLabel options={["Closest"]} force={f} disabled={off(f)} /></div>) },
+    { name: "Text input", render: without(["pressed", "selected"], (f) => <div className="w-36"><k.TextInput label="Search" hideLabel placeholder="Search" force={f} disabled={off(f)} /></div>) },
+    { name: "Select", render: without(["pressed", "selected"], (f) => <div className="w-32"><k.Select label="Sort" hideLabel options={["Closest"]} force={f} disabled={off(f)} /></div>) },
     { name: "Checkbox", render: all((f) => <k.Checkbox label="Outlets" checked={on(f)} force={f} disabled={off(f)} />) },
     { name: "Radio", render: all((f) => <k.Radio label="Quiet" name={`r-${f}`} checked={on(f)} force={f} disabled={off(f)} />) },
     { name: "Toggle", render: all((f) => <k.Toggle label="Open now" checked={on(f)} force={f} disabled={off(f)} />) },
     { name: "Tab", render: without(["disabled"], (f) => <k.Tab selected={on(f)} force={f}>Saved</k.Tab>) },
     { name: "Filter chip", render: all((f) => <k.Chip selected={on(f)} force={f} disabled={off(f)}>Quiet</k.Chip>) },
-    { name: "List row", render: without(["selected", "disabled"], (f) => <ul className="w-44"><k.ListRow spot={spots[0]} force={f} /></ul>) },
+    { name: "List row", render: without(["selected", "disabled"], (f) => <ul className="w-40"><k.ListRow spot={spots[0]} force={f} /></ul>) },
   ];
 }
 
@@ -234,18 +234,18 @@ export function DesignSystem({ spec }: { spec: DesignSpec }) {
               <table inert className="w-full min-w-[60rem] border-separate border-spacing-y-2 text-left text-sm">
                 <thead>
                   <tr>
-                    <th className={`w-36 pr-4 font-normal ${c.label}`}>Control</th>
+                    <th className={`w-28 pr-3 font-normal ${c.label}`}>Control</th>
                     {STATES.map((s) => (
-                      <th key={s} className={`pr-4 font-normal capitalize ${c.label}`}>{s}</th>
+                      <th key={s} className={`pr-3 font-normal capitalize ${c.label}`}>{s}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {stateRows(k).map((row) => (
                     <tr key={row.name}>
-                      <th className="pr-4 font-normal">{row.name}</th>
+                      <th className="pr-3 font-normal">{row.name}</th>
                       {STATES.map((s) => (
-                        <td key={s} className="py-1 pr-4 align-middle">
+                        <td key={s} className="py-1 pr-3 align-middle whitespace-nowrap">
                           {row.render[s] ? row.render[s]!(s) : <span className={c.muted}>—</span>}
                         </td>
                       ))}

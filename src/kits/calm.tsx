@@ -92,7 +92,7 @@ const TextInput: Kit["TextInput"] = ({ label, hideLabel, placeholder, value, onC
         readOnly={!onChange}
         onChange={(e) => onChange?.(e.target.value)}
         disabled={disabled}
-        className={`w-full min-w-40 rounded-md border py-2 pr-3 pl-9 text-sm transition placeholder:text-calm-muted ${look(force, disabled, field)}`}
+        className={`w-full min-w-28 rounded-md border py-2 pr-3 pl-9 text-sm transition placeholder:text-calm-muted ${look(force, disabled, field)}`}
       />
     </span>
   </label>
@@ -106,7 +106,7 @@ const Select: Kit["Select"] = ({ label, hideLabel, options, value, onChange, for
         value={value}
         onChange={(e) => onChange?.(e.target.value)}
         disabled={disabled}
-        className={`w-full min-w-36 cursor-pointer appearance-none rounded-md border py-2 pr-9 pl-3 text-sm transition ${look(force, disabled, field)}`}
+        className={`w-full min-w-28 cursor-pointer appearance-none rounded-md border py-2 pr-9 pl-3 text-sm transition ${look(force, disabled, field)}`}
       >
         {options.map((o) => (
           <option key={o}>{o}</option>
