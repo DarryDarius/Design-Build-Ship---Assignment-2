@@ -276,7 +276,7 @@ const hours = (open: number, close: number) => `${formatHour(open)} – ${format
 
 const Card: Kit["Card"] = ({ spot, onOpen, force, saved }) => (
   <article
-    className={`relative rounded-xl border p-5 transition ${look(force, false, {
+    className={`relative h-full rounded-xl border p-5 transition ${look(force, false, {
       rest: "border-calm-border bg-calm-surface",
       live: "hover:border-calm-muted active:bg-calm-bg has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-calm-accent has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-calm-bg",
       hover: "border-calm-muted bg-calm-surface",
