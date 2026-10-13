@@ -67,9 +67,9 @@ const TextLink: Kit["TextLink"] = ({ href, force, children }) => (
 
 const field = {
   rest: "border-calm-border bg-white/70 text-calm-text",
-  live: "hover:border-calm-muted focus:border-calm-accent focus:ring-2 focus:ring-calm-accent/25 outline-none",
+  live: "hover:border-calm-muted focus:border-calm-accent focus:ring-1 focus:ring-calm-accent outline-none",
   hover: "border-calm-muted bg-white/70 text-calm-text",
-  focus: "border-calm-accent! ring-2 ring-calm-accent/25",
+  focus: "border-calm-accent! ring-1 ring-calm-accent",
   disabled: "cursor-not-allowed border-dashed border-calm-border bg-calm-bg text-calm-muted",
 };
 
@@ -373,11 +373,6 @@ const DetailPanel: Kit["DetailPanel"] = ({ spot, saved, onSave, onClose }) => (
       ) : (
         <Button onClick={onSave} aria-pressed={false}>
           Save spot
-        </Button>
-      )}
-      {onClose && (
-        <Button variant="secondary" onClick={onClose}>
-          Close
         </Button>
       )}
     </div>

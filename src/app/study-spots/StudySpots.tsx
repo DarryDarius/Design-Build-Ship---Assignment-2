@@ -92,10 +92,10 @@ export function StudySpots() {
             Study Spots
           </Link>
           <nav aria-label="Site" className="flex gap-5 text-sm text-calm-muted">
-            <a href="#about" className={`hover:text-calm-text ${focusRing}`}>
+            <a href="#about" className={`inline-block py-1 hover:text-calm-text ${focusRing}`}>
               About
             </a>
-            <Link href="/" className={`hover:text-calm-text ${focusRing}`}>
+            <Link href="/" className={`inline-block py-1 hover:text-calm-text ${focusRing}`}>
               Hub
             </Link>
           </nav>

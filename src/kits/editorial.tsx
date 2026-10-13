@@ -371,11 +371,6 @@ const DetailPanel: Kit["DetailPanel"] = ({ spot, saved, onSave, onClose }) => (
           Save spot
         </Button>
       )}
-      {onClose && (
-        <Button variant="secondary" onClick={onClose}>
-          Close
-        </Button>
-      )}
     </div>
   </div>
 );
