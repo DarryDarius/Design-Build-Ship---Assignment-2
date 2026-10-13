@@ -1,26 +1,66 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-calm-display: var(--font-fraunces);
+  --font-calm-body: var(--font-dm-sans);
+  --font-ed-display: var(--font-instrument-serif);
+  --font-ed-body: var(--font-inter-tight);
+  --font-y2k-display: var(--font-unbounded);
+  --font-y2k-body: var(--font-space-grotesk);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  /* Calm · Matte · Warm */
+  --color-calm-bg: #f3ece1;
+  --color-calm-surface: #fbf7f1;
+  --color-calm-text: #2a231d;
+  --color-calm-muted: #6b5f54;
+  --color-calm-border: #dcd0bf;
+  --color-calm-accent: #9a4426;
+  --color-calm-accent-hover: #823720;
+  --color-calm-accent-press: #6c2d1a;
+  --color-calm-sage: #4f6146;
+  --color-calm-error: #9b2c2c;
+
+  /* Editorial · Ink · Grid */
+  --color-ed-bg: #f7f5f0;
+  --color-ed-surface: #ffffff;
+  --color-ed-text: #121212;
+  --color-ed-muted: #595751;
+  --color-ed-hair: #d9d5cc;
+  --color-ed-accent: #c21d17;
+  --color-ed-accent-hover: #a11712;
+  --color-ed-accent-press: #80120e;
+
+  /* Y2K · Glossy · Pop */
+  --color-y2k-bg: #eeebff;
+  --color-y2k-surface: #ffffff;
+  --color-y2k-text: #1b1446;
+  --color-y2k-muted: #564e86;
+  --color-y2k-border: #c9c2f2;
+  --color-y2k-accent: #c0137a;
+  --color-y2k-accent-hover: #a20f67;
+  --color-y2k-accent-press: #850b54;
+  --color-y2k-lime: #c8f55a;
+  --color-y2k-sky: #8fdcff;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+html {
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Matte paper grain used by the Calm style */
+.calm-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.27 0 0 0 0 0.2 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+.animate-pulse-soft {
+  animation: pulse-soft 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-soft { animation: none; }
 }

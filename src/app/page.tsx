@@ -1,69 +1,134 @@
-import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
+const styles = [
+  {
+    slug: "calm",
+    name: "Calm",
+    words: "Matte · Warm · Quiet",
+    font: "font-calm-display",
+    swatches: ["#f3ece1", "#2a231d", "#9a4426"],
+  },
+  {
+    slug: "editorial",
+    name: "Editorial",
+    words: "Ink · Grid · Serif",
+    font: "font-ed-display",
+    swatches: ["#f7f5f0", "#121212", "#c21d17"],
+  },
+  {
+    slug: "y2k",
+    name: "Y2K",
+    words: "Glossy · Pop · Chrome",
+    font: "font-y2k-display",
+    swatches: ["#eeebff", "#c8f55a", "#c0137a"],
+  },
+];
+
+function StyleRow({
+  href,
+  name,
+  words,
+  font,
+  swatches,
+  showAa,
+}: (typeof styles)[number] & { href: string; showAa?: boolean }) {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <li>
+      <Link
+        href={href}
+        className="group flex items-center gap-4 border-t border-calm-border py-4 outline-none transition-colors hover:bg-calm-surface focus-visible:bg-calm-surface focus-visible:ring-2 focus-visible:ring-calm-accent sm:px-3"
+      >
+        {showAa ? (
+          <span
+            aria-hidden
+            className={`${font} flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-calm-border bg-calm-surface text-lg text-calm-text`}
+          >
+            Aa
+          </span>
+        ) : (
+          <span aria-hidden className="flex h-10 w-10 shrink-0 overflow-hidden rounded-md border border-calm-border">
+            {swatches.map((c) => (
+              <span key={c} className="flex-1" style={{ background: c }} />
+            ))}
+          </span>
+        )}
+        <span className="flex-1">
+          <span className="block font-calm-display text-xl text-calm-text">{name}</span>
+          <span className="block text-sm text-calm-muted">{words}</span>
+        </span>
+        <span
+          aria-hidden
+          className="text-calm-muted transition-transform group-hover:translate-x-1 group-hover:text-calm-accent"
+        >
+          →
+        </span>
+      </Link>
+    </li>
+  );
+}
+
+function Section({ n, title, note, children }: { n: number; title: string; note?: string; children: React.ReactNode }) {
+  return (
+    <section className="grid gap-4 sm:grid-cols-[12rem_1fr] sm:gap-8">
+      <div>
+        <p className="text-xs font-medium uppercase tracking-[0.14em] text-calm-muted">
+          {String(n).padStart(2, "0")}
+        </p>
+        <h2 className="mt-1 font-calm-display text-2xl text-calm-text">{title}</h2>
+        {note && <p className="mt-1 text-sm text-calm-muted">{note}</p>}
+      </div>
+      {children}
+    </section>
+  );
+}
+
+export default function Hub() {
+  return (
+    <main className="calm-grain min-h-screen bg-calm-bg font-calm-body text-calm-text">
+      <div className="mx-auto max-w-4xl px-5 py-14 sm:px-8 sm:py-20">
+        <header className="mb-14 sm:mb-20">
+          <p className="text-sm text-calm-muted">Design, Build, Ship · Assignment 2</p>
+          <h1 className="mt-2 font-calm-display text-4xl leading-tight sm:text-5xl">
+            UI/UX &amp; Visual Design
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-3 max-w-md text-calm-muted">
+            Three styles explored, one picked, and a small guide to the cafés where I study in Hyde Park.
           </p>
+        </header>
+
+        <div className="space-y-14">
+          <Section n={1} title="Mood boards">
+            <ul className="border-b border-calm-border">
+              {styles.map((s) => (
+                <StyleRow key={s.slug} {...s} href={`/mood-boards/${s.slug}`} />
+              ))}
+            </ul>
+          </Section>
+
+          <Section n={2} title="Design systems" note="Each one built from its mood board">
+            <ul className="border-b border-calm-border">
+              {styles.map((s) => (
+                <StyleRow key={s.slug} {...s} showAa href={`/design-systems/${s.slug}`} />
+              ))}
+            </ul>
+          </Section>
+
+          <Section n={3} title="My site" note="In the Calm style">
+            <Link
+              href="/study-spots"
+              className="group block rounded-xl border border-calm-border bg-calm-surface p-6 outline-none transition-colors hover:border-calm-muted focus-visible:ring-2 focus-visible:ring-calm-accent focus-visible:ring-offset-2 focus-visible:ring-offset-calm-bg"
+            >
+              <span className="block font-calm-display text-3xl">Study Spots</span>
+              <span className="mt-1 block text-calm-muted">
+                Where to sit, sip, and get work done near campus.
+              </span>
+              <span className="mt-5 inline-flex items-center gap-2 rounded-md bg-calm-accent px-4 py-2 text-sm font-medium text-white transition-colors group-hover:bg-calm-accent-hover">
+                Open Study Spots <span aria-hidden>→</span>
+              </span>
+            </Link>
+          </Section>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
