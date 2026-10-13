@@ -52,11 +52,17 @@ export type Kit = {
   Tab: FC<Btn & { selected: boolean }>;
   Chip: FC<Btn & { selected: boolean }>;
   Badge: FC<{ tone?: "neutral" | "accent" | "success"; children: ReactNode }>;
-  Card: FC<{ spot: Spot; onOpen?: () => void; force?: Force }>;
+  Card: FC<{ spot: Spot; onOpen?: () => void; force?: Force; saved?: boolean }>;
   ListRow: FC<{ spot: Spot; onOpen?: () => void; force?: Force }>;
   DetailPanel: FC<{ spot: Spot; saved: boolean; onSave: () => void; onClose?: () => void }>;
   dialogClass: string;
-  UIState: FC<{ kind: "empty" | "loading" | "error" | "success"; onAction?: () => void }>;
+  UIState: FC<{
+    kind: "empty" | "loading" | "error" | "success";
+    onAction?: () => void;
+    title?: string;
+    body?: string;
+    actionLabel?: string;
+  }>;
 };
 
 export type ColorRole = {

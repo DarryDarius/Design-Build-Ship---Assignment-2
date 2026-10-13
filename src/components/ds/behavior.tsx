@@ -46,12 +46,14 @@ export function Tabs({
   items,
   value,
   onChange,
+  renderLabel = (item) => item,
 }: {
   kit: Pick<Kit, "TabList" | "Tab">;
   label: string;
   items: string[];
   value: string;
   onChange: (v: string) => void;
+  renderLabel?: (item: string) => ReactNode;
 }) {
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -79,7 +81,7 @@ export function Tabs({
           onClick={() => onChange(item)}
           onKeyDown={(e) => onKeyDown(e, i)}
         >
-          {item}
+          {renderLabel(item)}
         </kit.Tab>
       ))}
     </kit.TabList>

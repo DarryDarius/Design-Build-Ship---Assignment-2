@@ -44,6 +44,7 @@
   --color-y2k-accent-press: #850b54;
   --color-y2k-lime: #c8f55a;
   --color-y2k-sky: #8fdcff;
+  --color-y2k-error: #b42318;
 }
 
 html {
@@ -67,6 +68,13 @@ html {
 .animate-pulse-soft {
   animation: pulse-soft 1.6s ease-in-out infinite;
 }
+@keyframes stripes {
+  to { background-position: 32px 0; }
+}
+.animate-stripes {
+  animation: stripes 0.8s linear infinite;
+}
 @media (prefers-reduced-motion: reduce) {
-  .animate-pulse-soft { animation: none; }
+  .animate-pulse-soft,
+  .animate-stripes { animation: none; }
 }

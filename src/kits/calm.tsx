@@ -274,7 +274,7 @@ const Badge: Kit["Badge"] = ({ tone = "neutral", children }) => (
 
 const hours = (open: number, close: number) => `${formatHour(open)} – ${formatHour(close)}`;
 
-const Card: Kit["Card"] = ({ spot, onOpen, force }) => (
+const Card: Kit["Card"] = ({ spot, onOpen, force, saved }) => (
   <article
     className={`relative rounded-xl border p-5 transition ${look(force, false, {
       rest: "border-calm-border bg-calm-surface",
@@ -295,6 +295,7 @@ const Card: Kit["Card"] = ({ spot, onOpen, force }) => (
     <p className="mt-0.5 text-sm text-calm-muted">{spot.where}</p>
     <p className="mt-3 text-[15px] leading-relaxed text-calm-text">{spot.note}</p>
     <div className="mt-4 flex flex-wrap gap-1.5">
+      {saved && <Badge tone="accent">Saved</Badge>}
       <Badge tone={spot.noise === "Quiet" ? "success" : "neutral"}>{spot.noise}</Badge>
       {spot.outlets && <Badge>Outlets</Badge>}
       <Badge>{hours(spot.open, spot.close)}</Badge>
@@ -396,7 +397,7 @@ function StateIcon({ kind }: { kind: "empty" | "error" | "success" }) {
   );
 }
 
-const UIState: Kit["UIState"] = ({ kind, onAction }) => {
+const UIState: Kit["UIState"] = ({ kind, onAction, title, body, actionLabel }) => {
   if (kind === "loading")
     return (
       <div role="status" className="space-y-3">
@@ -413,6 +414,9 @@ const UIState: Kit["UIState"] = ({ kind, onAction }) => {
     error: ["Couldn’t load hours", "Check your connection and try again.", "Try again"],
     success: ["Saved to your spots", "Find it under the Saved tab.", ""],
   }[kind];
+  copy[0] = title ?? copy[0];
+  copy[1] = body ?? copy[1];
+  copy[2] = actionLabel ?? copy[2];
   return (
     <div className="space-y-2">
       <StateIcon kind={kind} />

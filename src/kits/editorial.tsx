@@ -266,7 +266,7 @@ const Badge: Kit["Badge"] = ({ tone = "neutral", children }) => (
 
 const hours = (open: number, close: number) => `${formatHour(open)} – ${formatHour(close)}`;
 
-const Card: Kit["Card"] = ({ spot, onOpen, force }) => (
+const Card: Kit["Card"] = ({ spot, onOpen, force, saved }) => (
   <article
     className={`group relative border-t-4 border-ed-text pt-3 pb-4 transition-colors ${look(force, false, {
       rest: "bg-transparent",
@@ -277,7 +277,10 @@ const Card: Kit["Card"] = ({ spot, onOpen, force }) => (
     })}`}
   >
     <div className="flex items-baseline justify-between gap-3">
-      <p className={`text-ed-accent ${label}`}>{spot.noise}</p>
+      <p className={`text-ed-accent ${label}`}>
+        {spot.noise}
+        {saved && <span className="text-ed-text"> · Saved</span>}
+      </p>
       <p className={`text-ed-muted tabular-nums ${label}`}>{spot.walk} min walk</p>
     </div>
     <h3 className="mt-2 font-ed-display text-3xl leading-[1.05] text-ed-text">
@@ -377,7 +380,7 @@ const DetailPanel: Kit["DetailPanel"] = ({ spot, saved, onSave, onClose }) => (
   </div>
 );
 
-const UIState: Kit["UIState"] = ({ kind, onAction }) => {
+const UIState: Kit["UIState"] = ({ kind, onAction, title, body, actionLabel }) => {
   if (kind === "loading")
     return (
       <div role="status" className="space-y-3">
@@ -395,6 +398,9 @@ const UIState: Kit["UIState"] = ({ kind, onAction }) => {
     error: ["Couldn’t load hours", "The listing didn’t arrive. Check your connection and try again.", "Try again"],
     success: ["Saved to your spots", "Find it under the Saved tab.", ""],
   }[kind];
+  copy[0] = title ?? copy[0];
+  copy[1] = body ?? copy[1];
+  copy[2] = actionLabel ?? copy[2];
   const kicker = { empty: "No results", error: "Error", success: "Saved" }[kind];
   const tone = { empty: "text-ed-muted", error: "text-ed-accent", success: "text-ed-success" }[kind];
   return (
